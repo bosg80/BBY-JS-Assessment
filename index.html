@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<script type="text/javascript">
+    //<![CDATA[
+    
+    var invocation = new XMLHttpRequest();
+    var url = 'http://www.bestbuy.ca/api/v2/json/category/';
+    var invocationHistoryText;
+    
+    function callOtherDomain(){
+        if(invocation)
+        {    
+            invocation.open('GET', url, true);
+            invocation.onreadystatechange = handler;
+            invocation.send(); 
+        }
+        else
+        {
+            invocationHistoryText = "No Invocation TookPlace At All";
+            var textNode = document.createTextNode(invocationHistoryText);
+            var textDiv = document.getElementById("textDiv");
+            textDiv.appendChild(textNode);
+        }
+        
+    }
+    function handler(evtXHR)
+    {
+        if (invocation.readyState == 4)
+        {
+                if (invocation.status == 200)
+                {
+                    var response = invocation.responseXML;
+                    var invocationHistory = response.getElementsByTagName('invocationHistory').item(0).firstChild.data;
+                    invocationHistoryText = document.createTextNode(invocationHistory);
+                    var textDiv = document.getElementById("textDiv");
+                    textDiv.appendChild(invocationHistoryText);
+                    
+                }
+                else
+                    alert("Invocation Errors Occured");
+        }
+        else
+            dump("currently the application is at" + invocation.readyState);
+    }
+    //]]>
+    
+    
+    </script>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <title>BBY JS Assessment by Brendon George</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/shop-homepage.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+     <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">BBY JS Assessment by Brendon George</a>
+            </div>
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+        <div class="row">
+
+            <h1 id="lead">BBY</h1>
+            <div class="col-md-3">
+                <div id="list-group"></div>
+            </div>
+
+            <div class="col-md-9">
+
+                <div class="row" id="products"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container -->
+    <div class="container">
+
+        <hr>
+
+        <!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Thank you for the opportunity! <a href="https://ca.linkedin.com/in/brendongeorge" target="_blank">Brendon George</a></p>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <!-- /.container -->
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+        <span class="close">x</span>
+    </div>
+
+    </div>
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    
+    <!-- Modal JavaScript -->
+    <script src="modal.js"></script>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
